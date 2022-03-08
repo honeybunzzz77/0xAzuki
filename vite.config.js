@@ -45,19 +45,20 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    optimizeDeps: {
-      esbuildOptions: {
-        // Node.js global to browser globalThis
-        define: {
-          global: "globalThis",
+    rollupOptions: {
+      plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
+      define: {
+        process: {env:{}},
+    },
+
+      optimizeDeps: {
+        esbuildOptions: {
+          // Node.js global to browser globalThis
+          define: {
+            global: "globalThis",
+          },
         },
-        // Enable esbuild polyfill plugins
-        plugins: [
-          NodeGlobalsPolyfillPlugin({
-            buffer: true,
-          })
-        ],
       },
-    }
+   },
   } 
 })
