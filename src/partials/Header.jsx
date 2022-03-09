@@ -1,30 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Transition from "../utils/Transition";
 import Logo from "../images/0xAzukiApes.jpeg";
+import {
+  useTransactionContext,
+  useTransactionUpdate
+} from "../context/TransactionContext";
 
 function Header() {
+  const connected = useTransactionContext();
+  const connectWallet = useTransactionUpdate();
+
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const trigger = useRef(null);
   const mobileNav = useRef(null);
 
-  // close the mobile menu on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!mobileNav.current || !trigger.current) return;
-      if (
-        !mobileNavOpen ||
-        mobileNav.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setMobileNavOpen(false);
-    };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  });
-
+  // close the mobile menu on click outsidex
 
   return (
     <header className="absolute w-full z-30">
@@ -34,7 +26,10 @@ function Header() {
           <div className="shrink-0 mr-5">
             {/* Logo */}
             <Link to="/" className="block" aria-label="Cruip">
-              <img className="w-14 h-14 md:w-16 md:h-16 rounded-md" src={Logo}></img>
+              <img
+                className="w-14 h-14 md:w-16 md:h-16 rounded-md"
+                src={Logo}
+              ></img>
             </Link>
           </div>
 
@@ -44,7 +39,7 @@ function Header() {
             <ul className="flex justify-end flex-wrap items-center">
               <li>
                 <button
-                  to="/contact"
+                  onClick={connectWallet}
                   className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-6"
                 >
                   Connect Wallet
