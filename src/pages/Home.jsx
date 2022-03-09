@@ -26,7 +26,7 @@ function Home() {
           className="relative max-w-6xl mx-auto h-0 pointer-events-none -z-1"
           aria-hidden="true"
         >
-          <PageIllustration />
+          {/* <PageIllustration /> */}
         </div>
 
         {/*  Page sections */}

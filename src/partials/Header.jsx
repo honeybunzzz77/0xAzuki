@@ -2,21 +2,33 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Transition from "../utils/Transition";
 import Logo from "../images/0xAzukiApes.jpeg";
-import {
-  useTransactionContext,
-  useTransactionUpdate
-} from "../context/TransactionContext";
+import { TransactionContext } from "../context/TransactionContext";
 
 function Header() {
-  const connected = useTransactionContext();
-  const connectWallet = useTransactionUpdate();
-
+  const { connectWallet, address, disconnectWallet, connected } =
+    useContext(TransactionContext);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-
-  const trigger = useRef(null);
   const mobileNav = useRef(null);
 
-  // close the mobile menu on click outsidex
+  const renderConnectionButton = (str) =>
+    !connected && (str === null || str === undefined || str === "") ? (
+      <button
+        onClick={connectWallet}
+        className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-6"
+      >
+        Connect Wallet
+      </button>
+    ) : (
+      <button
+        onClick={disconnectWallet}
+        className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-6"
+      >
+        {str != undefined &&
+          `disconnect ${
+            str.substring(0, 6) + "..." + str.substring(str.length - 4)
+          }`}
+      </button>
+    );
 
   return (
     <header className="absolute w-full z-30">
@@ -37,14 +49,7 @@ function Header() {
           <nav>
             {/* Desktop CTA on the right */}
             <ul className="flex justify-end flex-wrap items-center">
-              <li>
-                <button
-                  onClick={connectWallet}
-                  className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-6"
-                >
-                  Connect Wallet
-                </button>
-              </li>
+              <li>{renderConnectionButton(address)}</li>
             </ul>
           </nav>
 
