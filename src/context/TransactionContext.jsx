@@ -86,7 +86,6 @@ export default function TransactionProvider({ children }) {
       }
       setWeb3Provider(web3Provider);
     } catch (error) {
-      alert(error)
       console.log(error);
     }
   });
@@ -105,7 +104,7 @@ export default function TransactionProvider({ children }) {
       if (connected) {
         const freeMintActive = await transactionContract.freeMintActive();
 
-        if (freeMintActive) {
+        if (amount === 1 && freeMintActive) {
           transactionContract.freeMint();
         } else {
           await transactionContract.publicSaleMint(amount, {
@@ -114,7 +113,6 @@ export default function TransactionProvider({ children }) {
         }
       }
     } catch (error) {
-      alert(error)
       console.log(error);
     }
   });
