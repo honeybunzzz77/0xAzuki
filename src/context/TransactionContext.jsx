@@ -9,7 +9,7 @@ export const TransactionContext = React.createContext();
 export default function TransactionProvider({ children }) {
   const [web3Provider, setWeb3Provider] = useState("");
   const [address, setAddress] = useState("");
-  const [connected, setConnection] = useState(false);
+  const [connected, setConnection] = useState();
   const [amount, setAmount] = useState(1);
   const contractABI = abi;
   const contractAddress = "0x4294854B0924aabcdeE463E9dbCB87934Ca8af79";
@@ -26,7 +26,7 @@ export default function TransactionProvider({ children }) {
   const web3Modal = new Web3Modal({
     network: "mainnet", // optional
     cacheProvider: false, // optional
-    disableInjectedProvider: false,
+    disableInjectedProvider: true,
     providerOptions, // required
   });
 
@@ -50,7 +50,7 @@ export default function TransactionProvider({ children }) {
   const checkIfWalletIsConnected = async () => {
     try {
       if (!web3Provider) return;
-      const accounts = await provider.listAccounts();
+      const accounts = await web3Provider.accounts();
       if (accounts.length >= 0) {
         setAddress(accounts[0]);
       }
@@ -63,11 +63,17 @@ export default function TransactionProvider({ children }) {
     try {
       const provider = await web3Modal.connect();
       const web3Provider = new ethers.providers.Web3Provider(provider);
-      const address = web3Provider.provider.selectedAddress;
+      const address = web3Provider.provider.accounts;
 
-      setConnection(true);
+      console.log('web3Provider', web3Provider)
+      if (web3Provider) {
+        setConnection(true);
+        console.log('connected', connected)
+
+      }
       setWeb3Provider(provider);
-      setAddress(address);
+      setAddress(address[0]);
+
     } catch (error) {
       console.log(error);
     }

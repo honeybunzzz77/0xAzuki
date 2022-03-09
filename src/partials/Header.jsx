@@ -10,8 +10,10 @@ function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const mobileNav = useRef(null);
 
-  const renderConnectionButton = (str) =>
-    !connected && (str === null || str === undefined || str === "") ? (
+  console.log('address',address)
+
+  const renderConnectionButton = () =>
+    (address != undefined || address !== null || address !== "") && !connected ? (
       <button
         onClick={connectWallet}
         className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-6"
@@ -23,10 +25,12 @@ function Header() {
         onClick={disconnectWallet}
         className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-6"
       >
-        {str != undefined &&
-          `disconnect ${
-            str.substring(0, 6) + "..." + str.substring(str.length - 4)
-          }`}
+        Disconnect
+        {/* {`disconnect ${
+          address.substring(0, 6) +
+          "..." +
+          address.substring(address.length - 4)
+        }`} */}
       </button>
     );
 
@@ -49,7 +53,7 @@ function Header() {
           <nav>
             {/* Desktop CTA on the right */}
             <ul className="flex justify-end flex-wrap items-center">
-              <li>{renderConnectionButton(address)}</li>
+              <li>{renderConnectionButton()}</li>
             </ul>
           </nav>
 
