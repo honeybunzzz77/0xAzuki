@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import BlackApe from "../images/1278.jpg";
 import { TransactionContext } from "../context/TransactionContext";
+import { SiTwitter } from "react-icons/si";
 
 function HeroHome() {
   const {
@@ -35,7 +36,12 @@ function HeroHome() {
               <p className="text-xs lg:pl-16">
                 {" "}
                 0xAZUKI APES IS NOT AFFILIATED WITH AZUKI OR AZUKI APES
-              </p>
+              </p> 
+              <a href="https://twitter.com/0xAASC" className="text-4xl" target="_blank"> 
+                  <SiTwitter
+                    className="cursor-pointer lg:ml-52 mt-5 ml-[43%] md:ml-1 text-yellow-500 hover:text-yellow-400"
+                    alt="0x Azuki Apes Twitter"
+                  /></a>
               <p className="text-xs uppercase font-bold text-yellow-500 lg:pl-36 mt-5">
                 {" "}
                 Only 1 free mint per wallet
