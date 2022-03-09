@@ -56,7 +56,7 @@ function HeroHome() {
                     name="amount"
                     value={amount}
                     onChange={handleInputChange}
-                    className="w-14 h-14 text-black rounded-md active:border-yellow-500 appearance-none pl-5 
+                    className="w-14 h-14 text-black rounded-md active:border-yellow-500 appearance-none 
                   hover:border-yellow-500 border-2 border-yellow-400 out-of-range:border-red-500 autofill:bg-yellow-200"
                   />
 
