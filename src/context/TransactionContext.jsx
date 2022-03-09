@@ -26,7 +26,7 @@ export default function TransactionProvider({ children }) {
   const web3Modal = new Web3Modal({
     network: "mainnet", // optional
     cacheProvider: false, // optional
-    disableInjectedProvider: true,
+    disableInjectedProvider: false,
     providerOptions, // required
   });
 
@@ -63,16 +63,23 @@ export default function TransactionProvider({ children }) {
     try {
       const provider = await web3Modal.connect();
       const web3Provider = new ethers.providers.Web3Provider(provider);
-      const address = web3Provider.provider.accounts;
+      const address =
+        web3Provider.connection.url === "metamask"
+          ? await provider.request({ method: "eth_requestAccounts" })
+          : web3Provider.provider.accounts;
 
-      console.log('web3Provider', web3Provider)
+      console.log("web3Provider", web3Provider);
       if (web3Provider) {
         setConnection(true);
-
       }
       setWeb3Provider(provider);
-      setAddress(address[0]);
-
+      if (web3Provider) {
+        if (web3Provider.connection.url === "metamask") {
+          setAddress(address[0]);
+        } else {
+          setAddress(address.join(""));
+        }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -96,7 +103,7 @@ export default function TransactionProvider({ children }) {
   });
 
   const sendTransaction = useCallback(async () => {
-    const provider = new ethers.providers.Web3Provider(web3Provider)
+    const provider = new ethers.providers.Web3Provider(web3Provider);
     const signer = provider.getSigner();
     const publicSaleTransaction = (amount * 0.01).toFixed(2).toString();
     const transactionContract = new ethers.Contract(
