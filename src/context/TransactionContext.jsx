@@ -24,7 +24,7 @@ export default function TransactionProvider({ children }) {
   };
 
   const web3Modal = new Web3Modal({
-    network: "rinkeby", // optional
+    network: "mainnet", // optional
     cacheProvider: false, // optional
     disableInjectedProvider: false,
     providerOptions, // required
