@@ -42,38 +42,43 @@ function HeroHome() {
                 data-aos-delay="300"
               >
                 <div className="md:pr-40 md:pb-8">
-                  <button
-                    onClick={handleIncrementClick}
-                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 
-                    h-14 w-14"
-                  >
-                    +
-                  </button>
-                  <input
+              
+                  {/* <input
                     type="number"
                     min="1"
                     max="25"
                     name="amount"
                     value={amount}
                     onChange={handleInputChange}
-                    className="w-14 h-14 text-black rounded-md active:border-yellow-500 appearance-none 
+                    className="w-14 h-14 text-black rounded-md active:border-yellow-500
                   hover:border-yellow-500 border-2 border-yellow-400 out-of-range:border-red-500 autofill:bg-yellow-200"
-                  />
+                  /> */}
+                  {/* <div className="text-2xl text-white pl-16">
+                  {amount}
+                  </div> */}
 
                   <button
                     onClick={handleDecrementClick}
-                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 h-14 w-14"
+                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-14"
                   >
                     -
                   </button>
+                  <button
+                    onClick={handleIncrementClick}
+                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 
+                    h-14 w-14"
+                  >
+                    +
+                  </button>
                 </div>
+                
 
-                <div className="flex flex-col justify-center max-w-sm mx-auto sm:max-w-md md:mx-0">
+                <div className="flex flex-col justify-center max-w-sm mx-auto sm:max-w-md lg:-mx-6 md:mx-0">
                   <button
                     className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[200px] mt-5 md:mt-0"
                     href="#0"
                   >
-                    Mint
+                    Mint {amount}
                   </button>
                 </div>
               </div>
