@@ -68,7 +68,6 @@ export default function TransactionProvider({ children }) {
       console.log('web3Provider', web3Provider)
       if (web3Provider) {
         setConnection(true);
-        console.log('connected', connected)
 
       }
       setWeb3Provider(provider);

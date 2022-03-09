@@ -13,7 +13,7 @@ function Header() {
   console.log('address',address)
 
   const renderConnectionButton = () =>
-    (address != undefined || address !== null || address !== "") && !connected ? (
+    (address == undefined || address === null || address === "") && !connected ? (
       <button
         onClick={connectWallet}
         className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-6"
@@ -25,7 +25,9 @@ function Header() {
         onClick={disconnectWallet}
         className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-6"
       >
-        Disconnect
+        Disconnect {address !== null || address != undefined ? address.substring(0, 6) +
+          "..." +
+          address.substring(address.length - 4) : ""}
         {/* {`disconnect ${
           address.substring(0, 6) +
           "..." +
