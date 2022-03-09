@@ -65,7 +65,6 @@ export default function TransactionProvider({ children }) {
       const web3Provider = new ethers.providers.Web3Provider(provider);
       const address = web3Provider.provider.selectedAddress;
 
-      console.log("provider", provider);
       setConnection(true);
       setWeb3Provider(provider);
       setAddress(address);
@@ -87,12 +86,14 @@ export default function TransactionProvider({ children }) {
       }
       setWeb3Provider(web3Provider);
     } catch (error) {
+      alert(error)
       console.log(error);
     }
   });
 
   const sendTransaction = useCallback(async () => {
-    const signer = web3Provider.getSigner();
+    const provider = new ethers.providers.Web3Provider(web3Provider)
+    const signer = provider.getSigner();
     const publicSaleTransaction = (amount * 0.01).toFixed(2).toString();
     const transactionContract = new ethers.Contract(
       contractAddress,
@@ -102,11 +103,18 @@ export default function TransactionProvider({ children }) {
 
     try {
       if (connected) {
-        await transactionContract.publicSaleMint(amount, {
-          value: ethers.utils.parseEther(publicSaleTransaction)._hex,
-        });
+        const freeMintActive = await transactionContract.freeMintActive();
+
+        if (freeMintActive) {
+          transactionContract.freeMint();
+        } else {
+          await transactionContract.publicSaleMint(amount, {
+            value: ethers.utils.parseEther(publicSaleTransaction)._hex,
+          });
+        }
       }
     } catch (error) {
+      alert(error)
       console.log(error);
     }
   });
@@ -163,10 +171,10 @@ export default function TransactionProvider({ children }) {
         handleIncrementClick,
         handleDecrementClick,
         handleInputChange,
-        sendTransaction
+        sendTransaction,
       }}
     >
-      {children}
-]    </TransactionContext.Provider>
+      {children}]{" "}
+    </TransactionContext.Provider>
   );
 }

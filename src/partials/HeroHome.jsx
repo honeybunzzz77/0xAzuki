@@ -36,8 +36,12 @@ function HeroHome() {
                 {" "}
                 0xAZUKI APES IS NOT AFFILIATED WITH AZUKI OR AZUKI APES
               </p>
+              <p className="text-xs uppercase font-bold text-yellow-500 lg:pl-36 mt-5">
+                {" "}
+                Only 1 free mint per wallet
+              </p>
               <div
-                className="mt-8 lg:pl-[130px]"
+                className="mt-8 lg:pl-[160px]"
                 data-aos="fade-down"
                 data-aos-delay="300"
               >
@@ -76,7 +80,7 @@ function HeroHome() {
                 <div className="flex flex-col justify-center max-w-sm mx-auto sm:max-w-md lg:-mx-6 md:mx-0">
                   <button
                     className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[200px] mt-5 md:mt-0"
-                    href="#0"
+                    onClick={sendTransaction}
                   >
                     Mint {amount}
                   </button>
