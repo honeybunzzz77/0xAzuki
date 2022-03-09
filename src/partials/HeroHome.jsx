@@ -8,8 +8,10 @@ function HeroHome() {
     handleIncrementClick,
     handleDecrementClick,
     handleInputChange,
-    sendTransaction,
+    publicTransaction,
+    freeMintTransaction,
     amount,
+    freeMintActive
   } = useContext(TransactionContext);
 
   return (
@@ -36,23 +38,35 @@ function HeroHome() {
               <p className="text-xs lg:pl-16">
                 {" "}
                 0xAZUKI APES IS NOT AFFILIATED WITH AZUKI OR AZUKI APES
-              </p> 
-              <a href="https://twitter.com/0xAASC" className="text-4xl" target="_blank"> 
-                  <SiTwitter
-                    className="cursor-pointer lg:ml-52 mt-5 ml-[43%] md:ml-1 text-yellow-500 hover:text-yellow-400"
-                    alt="0x Azuki Apes Twitter"
-                  /></a>
-              <p className="text-xs uppercase font-bold text-yellow-500 lg:pl-36 mt-5">
-                {" "}
-                Only 1 free mint per wallet
               </p>
+              <a
+                href="https://twitter.com/0xAASC"
+                className="text-4xl"
+                target="_blank"
+              >
+                <SiTwitter
+                  className="cursor-pointer lg:ml-52 mt-5 ml-[43%] md:ml-1 text-yellow-500 hover:text-yellow-400"
+                  alt="0x Azuki Apes Twitter"
+                />
+              </a>
+              <p className="text-xs uppercase font-bold text-yellow-500 mt-5 mb-5 lg:pl-[145px]">
+                  Only 1 free mint per wallet
+                </p>
               <div
-                className="mt-8 lg:pl-[160px]"
+                className="mt-4 lg:pl-[160px]"
                 data-aos="fade-down"
                 data-aos-delay="300"
               >
+         
+                <div className="flex flex-col justify-center max-w-sm mx-auto sm:max-w-md lg:-mx-6 md:mx-0 mb-5">
+                  <button
+                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[200px] mt-5 md:mt-0"
+                    onClick={freeMintTransaction}
+                  >
+                   Free mint
+                  </button>
+                </div>
                 <div className="md:pr-40 md:pb-8">
-              
                   {/* <input
                     type="number"
                     min="1"
@@ -81,12 +95,10 @@ function HeroHome() {
                     +
                   </button>
                 </div>
-                
-
                 <div className="flex flex-col justify-center max-w-sm mx-auto sm:max-w-md lg:-mx-6 md:mx-0">
                   <button
                     className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[200px] mt-5 md:mt-0"
-                    onClick={sendTransaction}
+                    onClick={publicTransaction}
                   >
                     Mint {amount}
                   </button>

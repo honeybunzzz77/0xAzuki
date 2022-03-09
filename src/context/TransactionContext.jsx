@@ -102,7 +102,28 @@ export default function TransactionProvider({ children }) {
     }
   });
 
-  const sendTransaction = useCallback(async () => {
+  const freeMintTransaction = useCallback(async () => {
+    const provider = new ethers.providers.Web3Provider(web3Provider);
+    const signer = provider.getSigner();
+    const transactionContract = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      signer
+    );
+
+    try {
+      if (connected) {
+        const freeMintActive = await transactionContract.freeMintActive();
+        if (freeMintActive) {
+          transactionContract.freeMint();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  const publicTransaction = useCallback(async () => {
     const provider = new ethers.providers.Web3Provider(web3Provider);
     const signer = provider.getSigner();
     const publicSaleTransaction = (amount * 0.01).toFixed(2).toString();
@@ -114,15 +135,9 @@ export default function TransactionProvider({ children }) {
 
     try {
       if (connected) {
-        const freeMintActive = await transactionContract.freeMintActive();
-
-        if (amount === 1 && freeMintActive) {
-          transactionContract.freeMint();
-        } else {
-          await transactionContract.publicSaleMint(amount, {
-            value: ethers.utils.parseEther(publicSaleTransaction)._hex,
-          });
-        }
+        await transactionContract.publicSaleMint(amount, {
+          value: ethers.utils.parseEther(publicSaleTransaction)._hex,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -181,7 +196,8 @@ export default function TransactionProvider({ children }) {
         handleIncrementClick,
         handleDecrementClick,
         handleInputChange,
-        sendTransaction,
+        publicTransaction,
+        freeMintTransaction,
       }}
     >
       {children}]{" "}
