@@ -10,7 +10,7 @@ export default function TransactionProvider({ children }) {
   const [web3Provider, setWeb3Provider] = useState("");
   const [address, setAddress] = useState("");
   const [connected, setConnection] = useState(false);
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(1);
   const contractABI = abi;
   const contractAddress = "0xb4f62BbC6e6098B4E6b6ADe94684e0Fb4E2A79e3";
 
