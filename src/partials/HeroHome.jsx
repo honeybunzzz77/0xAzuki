@@ -35,9 +35,10 @@ function HeroHome() {
               >
                 We are a community of 3,333 Ape and Azuki lovers
               </p>
-              <p className="text-xs lg:pl-16">
+              <p className="text-xs lg:pl-14">
                 {" "}
-                0xAZUKI APES IS NOT AFFILIATED WITH AZUKI OR AZUKI APES
+                WE ARE NOT AFFILIATED WITH AZUKI OR AZUKI APE SOCIAL CLUB
+
               </p>
               <a
                 href="https://twitter.com/0xAASC"
