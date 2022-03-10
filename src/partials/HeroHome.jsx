@@ -58,15 +58,15 @@ function HeroHome() {
                 data-aos-delay="300"
               >
          
-                <div className="flex flex-col justify-center max-w-sm mx-auto sm:max-w-md lg:-mx-6 md:mx-0 mb-5">
+                <div className=" justify-center max-w-sm mx-auto sm:max-w-md lg:-mx-6 md:mx-0 mb-5">
                   <button
-                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[200px] mt-5 md:mt-0"
+                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[200px] w-[170px] mt-5 md:mt-0"
                     onClick={freeMintTransaction}
                   >
                    Free mint
                   </button>
                 </div>
-                <div className="md:pr-40 lg:pb-2">
+                <div className="md:pr-40">
                   {/* <input
                     type="number"
                     min="1"
@@ -81,29 +81,32 @@ function HeroHome() {
                   {amount}
                   </div> */}
 
-                  <button
-                    onClick={handleDecrementClick}
-                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-14"
-                  >
-                    -
-                  </button>
-                  <button
-                    onClick={handleIncrementClick}
-                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 
-                    h-14 w-14"
-                  >
-                    +
-                  </button>
+               
+
                 </div>
                 <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[4px] md:mb-5">
                   Max public mint is 25
                 </p>
-                <div className="flex flex-col justify-center max-w-sm mx-auto sm:max-w-md lg:-mx-6 md:mx-0">
+                
+                <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0">
+                <button
+                    onClick={handleDecrementClick}
+                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-10"
+                  >
+                    -
+                  </button>
                   <button
-                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[200px] mt-5 md:mt-0"
+                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[250px] w-[50%] mt-5 md:mt-0"
                     onClick={publicTransaction}
                   >
                     Mint {amount}
+                  </button>
+                  <button
+                    onClick={handleIncrementClick}
+                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 
+                    h-14 w-10"
+                  >
+                    +
                   </button>
                 </div>
               </div>
