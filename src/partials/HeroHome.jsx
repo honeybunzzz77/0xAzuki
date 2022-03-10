@@ -96,7 +96,7 @@ function HeroHome() {
                     -
                   </button>
                   <button
-                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[250px] w-[50%] mt-5 md:mt-0"
+                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[235px] w-[50%] mt-5 md:mt-0"
                     onClick={publicTransaction}
                   >
                     Mint {amount}
