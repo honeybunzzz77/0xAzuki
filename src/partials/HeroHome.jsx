@@ -50,23 +50,11 @@ function HeroHome() {
                   alt="0x Azuki Apes Twitter"
                 />
               </a>
-              <p className="text-xs uppercase font-bold text-yellow-500 mt-5 md:mb-5 lg:pl-[145px]">
-                  Only 1 free mint per wallet
-                </p>
               <div
                 className="lg:mt-4 lg:pl-[160px]"
                 data-aos="fade-down"
                 data-aos-delay="300"
               >
-         
-                <div className=" justify-center max-w-sm mx-auto sm:max-w-md lg:-mx-6 md:mx-0 mb-5">
-                  <button
-                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[200px] w-[170px] mt-5 md:mt-0"
-                    onClick={freeMintTransaction}
-                  >
-                   Free mint
-                  </button>
-                </div>
                 <div className="md:pr-40">
                   {/* <input
                     type="number"
