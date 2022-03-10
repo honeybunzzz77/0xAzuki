@@ -85,7 +85,7 @@ function HeroHome() {
 
                 </div>
                 <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[4px] md:mb-5">
-                  Max public mint is 25
+                  Mint up to 25 at a time 
                 </p>
                 
                 <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0">
