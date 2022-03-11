@@ -12,7 +12,7 @@ function Stats() {
             {/* 1st item */}
             <div className="bg-white dark:bg-gray-800 py-8 px-1 shadow-2xl rounded-md" data-aos="fade-down" data-aos-anchor="[data-aos-id-stats]">
               <div className="font-red-hat-display text-3xl font-extrabold tracking-tighter mb-1">100</div>
-              <div className="text-gray-600 dark:text-gray-400">FREE MINTS</div>
+              <div className="text-gray-600 dark:text-gray-400">FREE MINTS (SOLD OUT)</div>
             </div>
             {/* 2nd item */}
             <div className="bg-white dark:bg-gray-800 py-8 px-1 shadow-2xl rounded-md" data-aos="fade-down" data-aos-anchor="[data-aos-id-stats]" data-aos-delay="100">
