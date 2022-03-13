@@ -16,8 +16,8 @@ function Stats() {
             </div>
             {/* 2nd item */}
             <div className="bg-white dark:bg-gray-800 py-8 px-1 shadow-2xl rounded-md" data-aos="fade-down" data-aos-anchor="[data-aos-id-stats]" data-aos-delay="100">
-              <div className="font-red-hat-display text-3xl font-extrabold tracking-tighter mb-1">3333</div>
-              <div className="text-gray-600 dark:text-gray-400">0xAZUKI APES</div>
+              <div className="font-red-hat-display text-3xl font-extrabold tracking-tighter mb-1">250</div>
+              <div className="text-gray-600 dark:text-gray-400">0xAZUKI APES (SOLD OUT)</div>
             </div>
             {/* 3rd item */}
             <div className="bg-white dark:bg-gray-800 py-8 px-1 shadow-2xl rounded-md" data-aos="fade-down" data-aos-anchor="[data-aos-id-stats]" data-aos-delay="200">
