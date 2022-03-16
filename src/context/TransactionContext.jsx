@@ -18,7 +18,7 @@ export default function TransactionProvider({ children }) {
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
-        infuraId: import.meta.env.VITE_INFURA_ID, // required
+        infuraId: "a436e83e0ed2478e8d86ba5a08f7c61c", // required
       },
     },
   };
