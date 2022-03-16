@@ -33,7 +33,7 @@ function Stats() {
                 target="_blank"
               >
                 <img
-                  className="w-[90px] h-[90px] ml-[125px] mt-5 hover:text-yellow-400 cursor-pointer"
+                  className="w-[90px] h-[90px] lg:ml-[120px] md:ml-[70px] ml-[38%] mt-5 hover:text-yellow-400 cursor-pointer"
                   src={Opensea}
                   alt="0x Azuki Apes Opensea"
                 />
