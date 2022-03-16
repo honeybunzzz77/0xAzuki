@@ -47,7 +47,7 @@ function Stats() {
               data-aos-delay="100"
             >
               <div className="font-red-hat-display text-3xl font-extrabold tracking-tighter mb-1">
-                3.3K
+                3333
               </div>
               <div className="text-gray-600 dark:text-gray-400 uppercase">
                 Expanded Collection

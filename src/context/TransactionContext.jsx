@@ -11,8 +11,11 @@ export default function TransactionProvider({ children }) {
   const [address, setAddress] = useState("");
   const [connected, setConnection] = useState();
   const [amount, setAmount] = useState(1);
+  // const [totalSupply, setTotalSupply]  = useState()
+  // const [collectionSize, setCollecttionSize] = useState()
   const contractABI = abi;
-  const contractAddress = "0xC03755E0c2e17a07609652979fBF8e63206D4Cf3";
+  const contractAddress = "0x121F509d496ff8b384ea41C565cFD9110152112B";
+
 
   const providerOptions = {
     walletconnect: {
