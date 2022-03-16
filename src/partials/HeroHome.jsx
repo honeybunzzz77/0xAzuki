@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import BlackApe from "../images/1278.jpg";
 import { TransactionContext } from "../context/TransactionContext";
 import { SiTwitter } from "react-icons/si";
-import Opensea from "../images/opensea-icon.png"
+import Opensea from "../images/opensea-icon.png";
+import { ethers } from "ethers";
 
 function HeroHome() {
   const {
@@ -12,6 +13,7 @@ function HeroHome() {
     publicTransaction,
     freeMintTransaction,
     amount,
+    walletQuanity,
     freeMintActive,
   } = useContext(TransactionContext);
 
@@ -23,17 +25,17 @@ function HeroHome() {
           <div className="md:grid md:grid-cols-12 md:gap-12 lg:gap-20 items-center">
             {/* Content */}
             <div className="md:col-span-7 lg:col-span-7 mb-8 md:mb-0 text-center md:text-left">
-            <h1
+              <h1
                 className="h1 md:text-4xl text-3xl mb-4 text-yellow-400 font-extrabold uppercase"
                 data-aos="fade-down"
               >
-                 Welcome to the
+                Welcome to the
               </h1>
               <h1
                 className="h1 md:text-4xl text-3xl mb-4 text-yellow-400 font-extrabold lg:pl-[40px]"
                 data-aos="fade-down"
               >
-                  0xSOCIAL CLUB
+                0xSOCIAL CLUB
               </h1>
               <p
                 className="md:text-lg text-xs text-white font-bold lg:pl-[90px]"
@@ -56,13 +58,13 @@ function HeroHome() {
                   alt="0x Azuki Apes Twitter"
                 />
               </a>
-                              {/* <a href="https://opensea.io/collection/0xazukiapes" target="_blank">
+              {/* <a href="https://opensea.io/collection/0xazukiapes" target="_blank">
                   <img
                     className="w-[90px] h-[90px] mt-5 lg:ml-8 ml-[180%] hover:text-yellow-400 cursor-pointer"
                     src={Opensea}
                     alt="0x Azuki Apes Opensea"
                   /> */}
-                {/* </a> */}
+              {/* </a> */}
               <div
                 className="lg:mt-4 lg:pl-[160px]"
                 data-aos="fade-down"
@@ -84,16 +86,20 @@ function HeroHome() {
                   </div> */}
                 </div>
                 <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-10 md:mx-0 md:mt-5">
-                <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[30px] md:mb-5">
-                  1 Free Mint Per Transaction 
-                </p>
-               <button
-                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[235px] w-[50%] mt-5 md:mt-0 "
-                    onClick={freeMintTransaction}
-                  >
-                   Free Mint
-                  </button>
-                  </div>
+                  <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[30px] md:mb-5">
+                    1 Free Mint Per Transaction
+                  </p>
+                  {walletQuanity === null || walletQuanity === undefined || walletQuanity < ethers.utils.hexlify(2) ? (
+                    <button
+                      className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[235px] w-[50%] mt-5 md:mt-0 "
+                      onClick={freeMintTransaction}
+                    >
+                      Free Mint
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[4px] md:mb-5">
                   Mint up to 25 at a time
                 </p>

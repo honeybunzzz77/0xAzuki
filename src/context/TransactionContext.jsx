@@ -11,7 +11,7 @@ export default function TransactionProvider({ children }) {
   const [address, setAddress] = useState("");
   const [connected, setConnection] = useState();
   const [amount, setAmount] = useState(1);
-  // const [totalSupply, setTotalSupply]  = useState()
+  const [walletQuanity, setWalletQuanity]  = useState()
   // const [collectionSize, setCollecttionSize] = useState()
   const contractABI = abi;
   const contractAddress = "0x121F509d496ff8b384ea41C565cFD9110152112B";
@@ -117,6 +117,7 @@ export default function TransactionProvider({ children }) {
     try {
       if (connected) {
         const walletQuanity = await transactionContract.walletQuantity(address);
+        setWalletQuanity(walletQuanity._hex)
         if (walletQuanity._hex < ethers.utils.hexlify(2)) {
           transactionContract.freeMint();
         }
@@ -194,6 +195,7 @@ export default function TransactionProvider({ children }) {
       value={{
         connectWallet,
         address,
+        walletQuanity,
         disconnectWallet,
         connected,
         amount,
