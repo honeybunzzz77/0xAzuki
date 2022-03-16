@@ -143,6 +143,7 @@ export default function TransactionProvider({ children }) {
         await transactionContract.publicSaleMint(amount, {
           value: ethers.utils.parseEther(publicSaleTransaction)._hex,
         });
+        console.log('value', ethers.utils.parseEther(publicSaleTransaction)._hex)
       }
     } catch (error) {
       console.log(error);
