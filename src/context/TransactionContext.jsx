@@ -12,7 +12,7 @@ export default function TransactionProvider({ children }) {
   const [connected, setConnection] = useState();
   const [amount, setAmount] = useState(1);
   const contractABI = abi;
-  const contractAddress = "0xb4f62BbC6e6098B4E6b6ADe94684e0Fb4E2A79e3";
+  const contractAddress = "0xC03755E0c2e17a07609652979fBF8e63206D4Cf3";
 
   const providerOptions = {
     walletconnect: {
@@ -113,10 +113,10 @@ export default function TransactionProvider({ children }) {
 
     try {
       if (connected) {
-        const freeMintActive = await transactionContract.freeMintActive();
-        if (freeMintActive) {
+        // const freeMintActive = await transactionContract.freeMintActive();
+        // if (freeMintActive) {
           transactionContract.freeMint();
-        }
+        // }
       }
     } catch (error) {
       console.log(error);

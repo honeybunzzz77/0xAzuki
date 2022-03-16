@@ -10,11 +10,6 @@
             "internalType":"uint256",
             "name":"collectionSize_",
             "type":"uint256"
-         },
-         {
-            "internalType":"uint256",
-            "name":"amountForDevs_",
-            "type":"uint256"
          }
       ],
       "stateMutability":"nonpayable",
@@ -118,7 +113,7 @@
       "inputs":[
          
       ],
-      "name":"amountForDevs",
+      "name":"actualCollectionSize",
       "outputs":[
          {
             "internalType":"uint256",

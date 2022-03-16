@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import BlackApe from "../images/1278.jpg";
 import { TransactionContext } from "../context/TransactionContext";
 import { SiTwitter } from "react-icons/si";
+import Opensea from "../images/opensea-icon.png"
 
 function HeroHome() {
   const {
@@ -11,7 +12,7 @@ function HeroHome() {
     publicTransaction,
     freeMintTransaction,
     amount,
-    freeMintActive
+    freeMintActive,
   } = useContext(TransactionContext);
 
   return (
@@ -22,23 +23,28 @@ function HeroHome() {
           <div className="md:grid md:grid-cols-12 md:gap-12 lg:gap-20 items-center">
             {/* Content */}
             <div className="md:col-span-7 lg:col-span-7 mb-8 md:mb-0 text-center md:text-left">
-              <h1
-                className="h1 md:text-5xl text-3xl mb-4 text-yellow-400 font-extrabold"
+            <h1
+                className="h1 md:text-4xl text-3xl mb-4 text-yellow-400 font-extrabold uppercase"
                 data-aos="fade-down"
               >
-                0xAZUKI APES
+                 Welcome to the
+              </h1>
+              <h1
+                className="h1 md:text-4xl text-3xl mb-4 text-yellow-400 font-extrabold lg:pl-[40px]"
+                data-aos="fade-down"
+              >
+                  0xSOCIAL CLUB
               </h1>
               <p
-                className="md:text-xl text-xs text-white font-bold"
+                className="md:text-lg text-xs text-white font-bold lg:pl-[90px]"
                 data-aos="fade-down"
                 data-aos-delay="150"
               >
-                We are a community of 3,333 Ape and Azuki lovers
+                Your NFT is your membership pass
               </p>
               <p className="text-xs lg:pl-14">
                 {" "}
                 WE ARE NOT AFFILIATED WITH AZUKI OR AZUKI APE SOCIAL CLUB
-
               </p>
               <a
                 href="https://twitter.com/0xAASC"
@@ -50,6 +56,13 @@ function HeroHome() {
                   alt="0x Azuki Apes Twitter"
                 />
               </a>
+                              {/* <a href="https://opensea.io/collection/0xazukiapes" target="_blank">
+                  <img
+                    className="w-[90px] h-[90px] mt-5 lg:ml-8 ml-[180%] hover:text-yellow-400 cursor-pointer"
+                    src={Opensea}
+                    alt="0x Azuki Apes Opensea"
+                  /> */}
+                {/* </a> */}
               <div
                 className="lg:mt-4 lg:pl-[160px]"
                 data-aos="fade-down"
@@ -69,16 +82,24 @@ function HeroHome() {
                   {/* <div className="text-2xl text-white pl-16">
                   {amount}
                   </div> */}
-
-               
-
                 </div>
-                <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[4px] md:mb-5">
-                  Mint up to 25 at a time 
+                <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-10 md:mx-0 md:mt-5">
+                <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[45px] md:mb-5">
+                  1 Free Mint Per Wallet
                 </p>
-                
-                <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0">
                 <button
+                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[235px] w-[50%] mt-5 md:mt-0 "
+                    onClick={freeMintTransaction}
+                  >
+                   Free Mint
+                  </button>
+                  </div>
+                <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[4px] md:mb-5">
+                  Mint up to 25 at a time
+                </p>
+
+                <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0">
+                  <button
                     onClick={handleDecrementClick}
                     className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-10"
                   >
