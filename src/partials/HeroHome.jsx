@@ -84,9 +84,6 @@ function HeroHome() {
                   </div> */}
                 </div>
                 <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-10 md:mx-0 md:mt-5">
-                <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[45px] md:mb-5">
-                  2 Free Mints Per Wallet 
-                </p>
                 <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[30px] md:mb-5">
                   1 Free Mint Per Transaction 
                 </p>
