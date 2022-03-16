@@ -87,7 +87,7 @@ function HeroHome() {
                 <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[30px] md:mb-5">
                   1 Free Mint Per Transaction 
                 </p>
-                <button
+               <button
                     className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[235px] w-[50%] mt-5 md:mt-0 "
                     onClick={freeMintTransaction}
                   >

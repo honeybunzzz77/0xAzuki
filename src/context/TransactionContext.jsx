@@ -116,10 +116,11 @@ export default function TransactionProvider({ children }) {
 
     try {
       if (connected) {
-        // const freeMintActive = await transactionContract.freeMintActive();
-        // if (freeMintActive) {
+        const walletQuanity = await transactionContract.walletQuantity(address);
+        if (walletQuanity._hex < ethers.utils.hexlify(2)) {
           transactionContract.freeMint();
-        // }
+        }
+        console.log('walletQuanity', walletQuanity._hex < ethers.utils.hexlify(2))
       }
     } catch (error) {
       console.log(error);
