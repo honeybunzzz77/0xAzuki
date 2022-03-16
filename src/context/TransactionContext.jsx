@@ -21,7 +21,7 @@ export default function TransactionProvider({ children }) {
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
-        infuraId: "a436e83e0ed2478e8d86ba5a08f7c61c", // required
+        infuraId: "d54e251fa0784a279208b6a9ee3ee8be", // required
       },
     },
   };
