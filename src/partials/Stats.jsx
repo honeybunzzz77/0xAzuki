@@ -1,5 +1,5 @@
 import React from "react";
-import Opensea from "../images/opensea-icon.png"
+import Opensea from "../images/opensea-icon.png";
 
 function Stats() {
   return (
@@ -52,6 +52,16 @@ function Stats() {
               <div className="text-gray-600 dark:text-gray-400 uppercase">
                 Expanded Collection
               </div>
+              <a
+                href="https://opensea.io/collection/0xazukiapesexpansion"
+                target="_blank"
+              >
+                <img
+                  className="w-[90px] h-[90px] lg:ml-[120px] md:ml-[70px] ml-[38%] mt-5 hover:text-yellow-400 cursor-pointer"
+                  src={Opensea}
+                  alt="0x Azuki Apes Opensea"
+                />
+              </a>
             </div>
             {/* 3rd item */}
             <div
