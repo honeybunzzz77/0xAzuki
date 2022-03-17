@@ -50,7 +50,7 @@ function Stats() {
                 3333
               </div>
               <div className="text-gray-600 dark:text-gray-400 uppercase">
-                Expanded Collection
+                Expanded Collection (SOLD OUT)
               </div>
               <a
                 href="https://opensea.io/collection/0xazukiapesexpansion"
