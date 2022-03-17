@@ -85,26 +85,6 @@ function HeroHome() {
                   {amount}
                   </div> */}
                 </div>
-                <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-10 md:mx-0 md:mt-5">
-                  <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[45px] md:mb-5">
-                    MAx 2 Mints Per Wallet
-                  </p>
-                  <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[30px] md:mb-5">
-                    1 Free Mint Per Transaction
-                  </p>
-                  {walletQuanity === null ||
-                  walletQuanity === undefined ||
-                  walletQuanity < ethers.utils.hexlify(2) ? (
-                    <button
-                      className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[235px] w-[50%] mt-5 md:mt-0 "
-                      onClick={freeMintTransaction}
-                    >
-                      Free Mint
-                    </button>
-                  ) : (
-                    ""
-                  )}
-                </div>
                 <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[4px] md:mb-5">
                   Mint up to 25 at a time
                 </p>
