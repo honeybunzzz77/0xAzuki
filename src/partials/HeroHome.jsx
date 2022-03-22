@@ -85,30 +85,9 @@ function HeroHome() {
                   {amount}
                   </div> */}
                 </div>
-                <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[4px] md:mb-5">
-                  Mint up to 25 at a time
-                </p>
 
                 <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0">
-                  <button
-                    onClick={handleDecrementClick}
-                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-10"
-                  >
-                    -
-                  </button>
-                  <button
-                    className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 md:w-[235px] w-[50%] mt-5 md:mt-0"
-                    onClick={publicTransaction}
-                  >
-                    Mint {amount}
-                  </button>
-                  <button
-                    onClick={handleIncrementClick}
-                    className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 
-                    h-14 w-10"
-                  >
-                    +
-                  </button>
+        
                 </div>
               </div>
             </div>

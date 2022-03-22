@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import abi from "../utils/ContractABI.json";
+import WalletLink from "walletlink";
 
 export const TransactionContext = React.createContext();
 
@@ -24,6 +25,14 @@ export default function TransactionProvider({ children }) {
         infuraId: "d54e251fa0784a279208b6a9ee3ee8be", // required
       },
     },
+    walletlink: {
+      package: WalletLink, // Required
+      options: {
+        appName: "0xSocialClub", // Required
+        infuraId: "d54e251fa0784a279208b6a9ee3ee8be", // Required unless you provide a JSON RPC url; see `rpc` below
+        chainId: 1
+      }
+    }
   };
 
   const web3Modal = new Web3Modal({
@@ -64,23 +73,26 @@ export default function TransactionProvider({ children }) {
 
   const connectWallet = useCallback(async () => {
     try {
+      
       const provider = await web3Modal.connect();
       const web3Provider = new ethers.providers.Web3Provider(provider);
-      const address =
-        web3Provider.connection.url === "metamask"
-          ? await provider.request({ method: "eth_requestAccounts" })
-          : web3Provider.provider.accounts;
+      let address;
 
-      console.log("web3Provider", web3Provider);
+      console.log('web3Provider', web3Provider)
+
       if (web3Provider) {
         setConnection(true);
-      }
-      setWeb3Provider(provider);
-      if (web3Provider) {
+        setWeb3Provider(provider);
+        
         if (web3Provider.connection.url === "metamask") {
-          setAddress(address[0]);
+          address = web3Provider.provider.selectedAddress
+          setAddress(address);
+        } else if (web3Provider.provider.isCoinbaseWallet) {
+          address = web3Provider.provider._addresses.toString()
+          setAddress(address);
         } else {
-          setAddress(address.join(""));
+          address = web3Provider.provider.accounts
+          setAddress(address);
         }
       }
     } catch (error) {
@@ -92,7 +104,7 @@ export default function TransactionProvider({ children }) {
     setConnection(false);
     setAddress(null);
     try {
-      web3Modal.clearCachedProvider();
+      await web3Modal.clearCachedProvider();
       if (
         web3Provider?.disconnect &&
         typeof web3Provider.disconnect === "function"
