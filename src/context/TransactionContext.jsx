@@ -4,19 +4,16 @@ import abi from "../utils/ContractABI.json";
 import redListAddresses from "../web3utils/whitelist";
 import { MerkleTree } from "merkletreejs";
 import keccak256 from "keccak256";
-
-import walletLinkModule from "@web3-onboard/walletlink";
-import walletConnectModule from "@web3-onboard/walletconnect";
-import injectedModule from "@web3-onboard/injected-wallets";
-import Onboard from "@web3-onboard/core";
-import { use } from "chai";
+import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
+import WalletConnect from "@walletconnect/web3-provider";
+import Web3Modal from "web3modal";
 
 export const TransactionContext = React.createContext();
 
 export default function TransactionProvider({ children }) {
   const [web3Provider, setWeb3Provider] = useState("");
   const [address, setAddress] = useState("");
-  const [connected, setConnection] = useState();
+  const [connected, setConnection] = useState(false);
   const [amount, setAmount] = useState(1);
   const [walletQuanity, setWalletQuanity] = useState();
   const [redList, setRedList] = useState();
@@ -83,109 +80,62 @@ export default function TransactionProvider({ children }) {
     }
   };
 
-  const walletConnect = walletConnectModule();
-  const injected = injectedModule();
-
-  const onboard = Onboard({
-    wallets: [walletConnect, injected], // created in previous step
-    chains: [
-      {
-        id: "0x1", // chain ID must be in hexadecimel
-        token: "ETH",
-        namespace: "evm",
-        label: "Ethereum Mainnet",
-        rpcUrl: "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95",
+  const providerOptions = {
+    walletlink: {
+      package: CoinbaseWalletSDK,
+      options: {
+        appName: "0xRed",
+        infuraId: "a084af88d6cf493fa727bb8d13271d95",
       },
-      // {
-      //   id: "0x4",
-      //   token: "rETH",
-      //   namespace: "evm",
-      //   label: "Ethereum Rinkeby Testnet",
-      //   rpcUrl:
-      //     "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
-      // },
-    ],
-    appMetadata: {
-      name: "Welcome To The 0xSocialClub",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-      description: "My app using Onboard",
-      recommendedInjectedWallets: [
-        // { name: "Coinbase", url: "https://wallet.coinbase.com/" },
-        { name: "MetaMask", url: "https://metamask.io" },
-      ],
     },
+    walletconnect: {
+      package: WalletConnect,
+      options: {
+        infuraId: "a084af88d6cf493fa727bb8d13271d95",
+      },
+    },
+  };
+
+
+  const web3Modal = new Web3Modal({
+    providerOptions, // required
   });
 
   const connectWallet = useCallback(async () => {
     try {
-      const wallets = await onboard.connectWallet();
-      console.log(wallets);
-      const { accounts, provider } = wallets[0];
+      const provider = await web3Modal.connect();
+      const library = new ethers.providers.Web3Provider(provider);
+      const accounts = await library.listAccounts();
 
       buildRedList();
-      if (accounts) setAddress(accounts[0].address);
-      setWeb3Provider(provider);
+      if (accounts) setAddress(accounts[0]);
+      setWeb3Provider(library);
       console.log(web3Provider);
+      setConnection(true);
 
-      if (web3Provider) {
-        setConnection(true);
-      }
+     console.log(typeof redListAddresses[address] == "undefined")
+
     } catch (error) {
       console.log(error);
     }
   });
 
   const disconnectWallet = useCallback(async () => {
-    const walletConnect = walletConnectModule();
-    const injected = injectedModule();
-
-    const onboard = Onboard({
-      wallets: [walletConnect, injected], // created in previous step
-      chains: [
-        {
-          id: "0x1", // chain ID must be in hexadecimel
-          token: "ETH",
-          namespace: "evm",
-          label: "Ethereum Mainnet",
-          rpcUrl:
-            "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95",
-        },
-        // {
-        //   id: "0x4",
-        //   token: "rETH",
-        //   namespace: "evm",
-        //   label: "Ethereum Rinkeby Testnet",
-        //   rpcUrl:
-        //     "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
-        // },
-      ],
-      appMetadata: {
-        name: "Welcome To The 0xSocialClub",
-        icon: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-        description: "My app using Onboard",
-        recommendedInjectedWallets: [
-          // { name: "Coinbase", url: "https://wallet.coinbase.com/" },
-          { name: "MetaMask", url: "https://metamask.io" },
-        ],
-      },
-    });
-
+    setConnection(false);
+    setAddress(null);
     try {
-      const [primaryWallet] = await onboard.state.get().wallets;
-      if (primaryWallet)
-        await onboard.disconnectWallet({ label: primaryWallet.label });
-      refreshState();
+      web3Modal.clearCachedProvider();
+      if (
+        web3Provider?.disconnect &&
+        typeof web3Provider.disconnect === "function"
+      ) {
+        await web3Provider.disconnect();
+      }
     } catch (error) {
       console.log(error);
     }
   });
 
-  const refreshState = () => {
-    setAddress("");
-    setWeb3Provider();
-  };
 
   const publicTransaction = useCallback(async () => {
     const provider = new ethers.providers.Web3Provider(web3Provider);
@@ -224,13 +174,13 @@ export default function TransactionProvider({ children }) {
 
   const checkCollectionSizeAndSupply = async () => {
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5"
-      );
+      // const provider = new ethers.providers.JsonRpcProvider(
+      //   "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5"
+      // );
       const transactionContract = new ethers.Contract(
         contractAddress,
         contractABI,
-        provider
+        web3Provider
       );
       let collection = await transactionContract.actualCollectionSize();
       setCollectionSize(collection.toString());
@@ -243,13 +193,13 @@ export default function TransactionProvider({ children }) {
 
   const checkOgMintActive = async () => {
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95"
-      );
+      // const provider = new ethers.providers.JsonRpcProvider(
+      //   "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95"
+      // );
       const transactionContract = new ethers.Contract(
         contractAddress,
         contractABI,
-        provider
+        web3Provider
       );
       let isActive = await transactionContract.ogMintActive();
       setOgMintActive(isActive);
@@ -260,13 +210,13 @@ export default function TransactionProvider({ children }) {
 
   const checkPublicMintActive = async () => {
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95"
-      );
+      // const provider = new ethers.providers.JsonRpcProvider(
+      //   "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95"
+      // );
       const transactionContract = new ethers.Contract(
         contractAddress,
         contractABI,
-        provider
+        web3Provider
       );
       let isActive = await transactionContract.publicSaleActive();
       setPublicMintActive(isActive);

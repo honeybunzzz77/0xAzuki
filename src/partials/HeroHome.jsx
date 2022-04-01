@@ -20,6 +20,7 @@ function HeroHome() {
     handleFreeDecrementClick,
     address,
     transaction,
+    connected,
   } = useContext(TransactionContext);
 
   return (
@@ -107,35 +108,42 @@ function HeroHome() {
                       Mint up to 10 at a time
                     </p>
                     <div className="flex justify-center mt-4 md:pr-[110px]">
-                    <button
-                      onClick={handleDecrementClick}
-                      className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-10 md:text-xs "
-                    >
-                      -
-                    </button>
-                    <button
-                      className="btn-sm text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 w-[120px] md:w-[235px] md:mt-0 md:text-sm text-[10px]"
-                      onClick={publicTransaction}
-                    >
-                      Mint {amount} 0xRed @ {amount * 0.02} ETH
-                    </button>
-                    <button
-                      onClick={handleIncrementClick}
-                      className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 text-xs 
+                      <button
+                        onClick={handleDecrementClick}
+                        className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-10 md:text-xs "
+                      >
+                        -
+                      </button>
+                      <button
+                        className="btn-sm text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 w-[120px] md:w-[235px] md:mt-0 md:text-sm text-[10px]"
+                        onClick={publicTransaction}
+                      >
+                        Mint {amount} 0xRed @ {amount * 0.02} ETH
+                      </button>
+                      <button
+                        onClick={handleIncrementClick}
+                        className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 text-xs 
                         h-14 w-10"
-                    >
-                      +
-                    </button>
-                  </div>
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   ""
                 )}
               </div>
-              {!isOgMintActive ? (
-                <p className="text-lg uppercase font-bold text-yellow-500 mt-5 lg:pl-[50px]  md:mb-5">
-                  Sorry You Are Not On The 0xRed List. <br />
-                  Please Come Back During Public Mint.{" "}
+              {!connected ? (
+                <p className="text-lg uppercase font-bold text-yellow-500 mt-5 lg:pl-[50px] text-xs md:mb-5">
+                  Please Connect Your Wallet To The Ethereum Network
+                </p>
+              ) : (
+                ""
+              )}
+              {connected && typeof redListAddresses[address] == "undefined" && isOgMintActive ? (
+                <p className="text-lg uppercase font-bold text-yellow-500 mt-5 lg:pl-[110px] text-xs md:mb-5">
+                  SORRY YOU ARE NOT ON THE 0XRED LIST. <br/> PLEASE COME BACK DURING
+                  PUBLIC MINT.
                 </p>
               ) : (
                 ""
