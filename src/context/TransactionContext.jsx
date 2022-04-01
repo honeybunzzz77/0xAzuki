@@ -96,7 +96,7 @@ export default function TransactionProvider({ children }) {
           namespace: "evm",
           label: "Ethereum Mainnet",
           rpcUrl:
-            "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5",
+            "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95",
         },
         // {
         //   id: "0x4",
@@ -149,7 +149,7 @@ export default function TransactionProvider({ children }) {
           namespace: "evm",
           label: "Ethereum Mainnet",
           rpcUrl:
-            "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5",
+            "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95",
         },
         // {
         //   id: "0x4",
@@ -245,7 +245,7 @@ export default function TransactionProvider({ children }) {
   const checkOgMintActive = async () => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5"
+        "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95"
       );
       const transactionContract = new ethers.Contract(
         contractAddress,
@@ -262,7 +262,7 @@ export default function TransactionProvider({ children }) {
   const checkPublicMintActive = async () => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5"
+        "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95"
       );
       const transactionContract = new ethers.Contract(
         contractAddress,
