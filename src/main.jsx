@@ -6,7 +6,7 @@ import TransactionProvider from "./context/TransactionContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <TransactionProvider>
+]    <TransactionProvider>
       <Router>
         <App />
       </Router>

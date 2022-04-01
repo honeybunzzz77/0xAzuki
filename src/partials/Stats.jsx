@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Opensea from "../images/opensea-icon.png";
+import { TransactionContext } from "../context/TransactionContext";
 
 function Stats() {
+  const { collectionSize, totalSupply } = useContext(TransactionContext);
   return (
     <section className="relative">
       {/* Background gradient (light version only) */}
@@ -71,9 +73,11 @@ function Stats() {
               data-aos-delay="200"
             >
               <div className="font-red-hat-display text-3xl font-extrabold tracking-tighter mb-1">
-                0.01 ETH
+                {totalSupply} / {collectionSize}
               </div>
-              <div className="text-gray-600 dark:text-gray-400">MINT PRICE</div>
+              <div className="text-gray-600 dark:text-gray-400">
+                0xRED COLLECTION
+              </div>
             </div>
           </div>
         </div>

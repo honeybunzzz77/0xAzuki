@@ -1,9 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { ethers } from "ethers";
-import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
 import abi from "../utils/ContractABI.json";
-import WalletLink from "walletlink";
+import redListAddresses from "../web3utils/whitelist";
+import { MerkleTree } from "merkletreejs";
+import keccak256 from "keccak256";
+
+import walletLinkModule from "@web3-onboard/walletlink";
+import walletConnectModule from "@web3-onboard/walletconnect";
+import injectedModule from "@web3-onboard/injected-wallets";
+import Onboard from "@web3-onboard/core";
+import { use } from "chai";
 
 export const TransactionContext = React.createContext();
 
@@ -12,35 +18,29 @@ export default function TransactionProvider({ children }) {
   const [address, setAddress] = useState("");
   const [connected, setConnection] = useState();
   const [amount, setAmount] = useState(1);
-  const [walletQuanity, setWalletQuanity]  = useState()
-  // const [collectionSize, setCollecttionSize] = useState()
+  const [walletQuanity, setWalletQuanity] = useState();
+  const [redList, setRedList] = useState();
+  const [isOgMintActive, setOgMintActive] = useState(false);
+  const [isPublicMintActive, setPublicMintActive] = useState(false);
+  const [collectionSize, setCollectionSize] = useState();
+  const [totalSupply, setTotalSupply] = useState();
+  const [isOnWhiteList, setIsOnWhiteList] = useState();
+  const [transaction, setTransaction] = useState();
+
   const contractABI = abi;
-  const contractAddress = "0x121F509d496ff8b384ea41C565cFD9110152112B";
+  const contractAddress = "0x4c30424BDa07D43a31041573ac7400B40f88deD1";
 
-
-  const providerOptions = {
-    walletconnect: {
-      package: WalletConnectProvider, // required
-      options: {
-        infuraId: "d54e251fa0784a279208b6a9ee3ee8be", // required
-      },
-    },
-    walletlink: {
-      package: WalletLink, // Required
-      options: {
-        appName: "0xSocialClub", // Required
-        infuraId: "d54e251fa0784a279208b6a9ee3ee8be", // Required unless you provide a JSON RPC url; see `rpc` below
-        chainId: 1
-      }
+  const buildRedList = () => {
+    const leaves = redListAddresses.map((address) => keccak256(address));
+    const tree = new MerkleTree(leaves, keccak256, { sortPairs: true });
+    const redObj = {};
+    for (let i = 0; i < redListAddresses.length; i++) {
+      let hashAddressFor = keccak256(redListAddresses[i]);
+      let forProof = tree.getHexProof(hashAddressFor);
+      redObj[redListAddresses[i].toUpperCase()] = forProof;
     }
+    setRedList(redObj);
   };
-
-  const web3Modal = new Web3Modal({
-    network: "mainnet", // optional
-    cacheProvider: false, // optional
-    disableInjectedProvider: false,
-    providerOptions, // required
-  });
 
   const handleInputChange = (e) => {
     setAmount(e.target.value);
@@ -48,12 +48,24 @@ export default function TransactionProvider({ children }) {
   };
 
   const handleIncrementClick = () => {
-    if (amount >= 0 && amount < 25) {
+    if (amount >= 0 && amount < 10) {
       setAmount(amount + 1);
     }
   };
 
   const handleDecrementClick = () => {
+    if (amount > 0 && amount !== 1) {
+      setAmount(amount - 1);
+    }
+  };
+
+  const handleFreeIncrementClick = () => {
+    if (amount >= 0 && amount < 2) {
+      setAmount(amount + 1);
+    }
+  };
+
+  const handleFreeDecrementClick = () => {
     if (amount > 0 && amount !== 1) {
       setAmount(amount - 1);
     }
@@ -72,28 +84,52 @@ export default function TransactionProvider({ children }) {
   };
 
   const connectWallet = useCallback(async () => {
-    try {
-      
-      const provider = await web3Modal.connect();
-      const web3Provider = new ethers.providers.Web3Provider(provider);
-      let address;
+    const walletConnect = walletConnectModule();
+    const injected = injectedModule();
 
-      console.log('web3Provider', web3Provider)
+    const onboard = Onboard({
+      wallets: [walletConnect, injected], // created in previous step
+      chains: [
+        {
+          id: "0x1", // chain ID must be in hexadecimel
+          token: "ETH",
+          namespace: "evm",
+          label: "Ethereum Mainnet",
+          rpcUrl:
+            "https://mainnet.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+        },
+        {
+          id: "0x4",
+          token: "rETH",
+          namespace: "evm",
+          label: "Ethereum Rinkeby Testnet",
+          rpcUrl:
+            "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+        },
+      ],
+      appMetadata: {
+        name: "Welcome To The 0xSocialClub",
+        icon: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+        description: "My app using Onboard",
+        recommendedInjectedWallets: [
+          // { name: "Coinbase", url: "https://wallet.coinbase.com/" },
+          { name: "MetaMask", url: "https://metamask.io" },
+        ],
+      },
+    });
+    try {
+      const wallets = await onboard.connectWallet();
+      console.log(wallets);
+      const { accounts, provider } = wallets[0];
+
+      buildRedList();
+      if (accounts) setAddress(accounts[0].address);
+      setWeb3Provider(provider);
+      console.log(web3Provider);
 
       if (web3Provider) {
         setConnection(true);
-        setWeb3Provider(provider);
-        
-        if (web3Provider.connection.url === "metamask") {
-          address = web3Provider.provider.selectedAddress
-          setAddress(address);
-        } else if (web3Provider.provider.isCoinbaseWallet) {
-          address = web3Provider.provider._addresses.toString()
-          setAddress(address);
-        } else {
-          address = web3Provider.provider.accounts
-          setAddress(address);
-        }
       }
     } catch (error) {
       console.log(error);
@@ -101,17 +137,70 @@ export default function TransactionProvider({ children }) {
   });
 
   const disconnectWallet = useCallback(async () => {
-    setConnection(false);
-    setAddress(null);
+    const walletConnect = walletConnectModule();
+    const injected = injectedModule();
+
+    const onboard = Onboard({
+      wallets: [walletConnect, injected], // created in previous step
+      chains: [
+        {
+          id: "0x1", // chain ID must be in hexadecimel
+          token: "ETH",
+          namespace: "evm",
+          label: "Ethereum Mainnet",
+          rpcUrl:
+            "https://mainnet.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+        },
+        {
+          id: "0x4",
+          token: "rETH",
+          namespace: "evm",
+          label: "Ethereum Rinkeby Testnet",
+          rpcUrl:
+            "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+        },
+      ],
+      appMetadata: {
+        name: "Welcome To The 0xSocialClub",
+        icon: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+        description: "My app using Onboard",
+        recommendedInjectedWallets: [
+          // { name: "Coinbase", url: "https://wallet.coinbase.com/" },
+          { name: "MetaMask", url: "https://metamask.io" },
+        ],
+      },
+    });
+
     try {
-      await web3Modal.clearCachedProvider();
-      if (
-        web3Provider?.disconnect &&
-        typeof web3Provider.disconnect === "function"
-      ) {
-        await web3Provider.disconnect();
-      }
-      setWeb3Provider(web3Provider);
+      const [primaryWallet] = await onboard.state.get().wallets;
+      if (primaryWallet)
+        await onboard.disconnectWallet({ label: primaryWallet.label });
+      refreshState();
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  const refreshState = () => {
+    setAddress("");
+    setWeb3Provider();
+  };
+
+  const publicTransaction = useCallback(async () => {
+    const provider = new ethers.providers.Web3Provider(web3Provider);
+    const signer = provider.getSigner();
+    const publicSaleTransaction = (amount * 0.02).toFixed(2).toString();
+    const transactionContract = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      signer
+    );
+
+    try {
+      await transactionContract.publicSaleMint(amount, {
+        value: ethers.utils.parseEther(publicSaleTransaction)._hex,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -126,51 +215,81 @@ export default function TransactionProvider({ children }) {
       signer
     );
 
+
     try {
-      if (connected) {
-        const walletQuanity = await transactionContract.walletQuantity(address);
-        setWalletQuanity(walletQuanity._hex)
-        if (walletQuanity._hex < ethers.utils.hexlify(2)) {
-          transactionContract.freeMint();
-        }
-        console.log('walletQuanity', walletQuanity._hex < ethers.utils.hexlify(2))
-      }
+      await transactionContract.ogMint(amount, redList[address.toUpperCase()]);
     } catch (error) {
       console.log(error);
     }
   });
 
-  const publicTransaction = useCallback(async () => {
-    const provider = new ethers.providers.Web3Provider(web3Provider);
-    const signer = provider.getSigner();
-    const publicSaleTransaction = (amount * 0.01).toFixed(2).toString();
-    const transactionContract = new ethers.Contract(
-      contractAddress,
-      contractABI,
-      signer
-    );
-
+  const checkCollectionSizeAndSupply = async () => {
     try {
-      if (connected) {
-        await transactionContract.publicSaleMint(amount, {
-          value: ethers.utils.parseEther(publicSaleTransaction)._hex,
-        });
-        console.log('value', ethers.utils.parseEther(publicSaleTransaction)._hex)
-      }
+      const provider = new ethers.providers.JsonRpcProvider(
+        "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9"
+      );
+      const transactionContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        provider
+      );
+      let collection = await transactionContract.actualCollectionSize();
+      setCollectionSize(collection.toString());
+      let supply = await transactionContract.totalSupply();
+      setTotalSupply(supply.toString());
     } catch (error) {
       console.log(error);
     }
-  });
+  };
+
+  const checkOgMintActive = async () => {
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(
+        "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9"
+      );
+      const transactionContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        provider
+      );
+      let isActive = await transactionContract.ogMintActive();
+      setOgMintActive(isActive);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkPublicMintActive = async () => {
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(
+        "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9"
+      );
+      const transactionContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        provider
+      );
+      let isActive = await transactionContract.publicSaleActive();
+      setPublicMintActive(isActive);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    checkCollectionSizeAndSupply();
+  }, [checkCollectionSizeAndSupply]);
+
+  useEffect(() => {
+    checkOgMintActive();
+  }, [checkOgMintActive]);
+
+  useEffect(() => {
+    checkPublicMintActive();
+  }, [checkPublicMintActive]);
 
   useEffect(() => {
     checkIfWalletIsConnected();
   }, []);
-
-  useEffect(() => {
-    if (web3Modal.cachedProvider) {
-      connectWallet();
-    }
-  }, [connectWallet]);
 
   useEffect(() => {
     if (web3Provider?.on) {
@@ -217,6 +336,12 @@ export default function TransactionProvider({ children }) {
         handleInputChange,
         publicTransaction,
         freeMintTransaction,
+        handleFreeIncrementClick,
+        handleFreeDecrementClick,
+        isOgMintActive,
+        isPublicMintActive,
+        collectionSize,
+        totalSupply,
       }}
     >
       {children}]{" "}

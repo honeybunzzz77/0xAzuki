@@ -10,8 +10,6 @@ function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const mobileNav = useRef(null);
 
-  console.log('address',address)
-
   const renderConnectionButton = () =>
     (address == undefined || address === null || address === "") && !connected ? (
       <button

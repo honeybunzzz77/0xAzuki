@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import BlackApe from "../images/1278.jpg";
 import { TransactionContext } from "../context/TransactionContext";
 import { SiTwitter } from "react-icons/si";
-import Opensea from "../images/opensea-icon.png";
-import { ethers } from "ethers";
+import redListAddresses from "../web3utils/whitelist";
+import Icon from "../images/icon.png";
 
 function HeroHome() {
   const {
@@ -14,7 +14,12 @@ function HeroHome() {
     freeMintTransaction,
     amount,
     walletQuanity,
-    freeMintActive,
+    isOgMintActive,
+    isPublicMintActive,
+    handleFreeIncrementClick,
+    handleFreeDecrementClick,
+    address,
+    transaction,
   } = useContext(TransactionContext);
 
   return (
@@ -49,7 +54,7 @@ function HeroHome() {
                 WE ARE NOT AFFILIATED WITH AZUKI OR AZUKI APE SOCIAL CLUB
               </p>
               <a
-                href="https://twitter.com/0xAASC"
+                href="https://twitter.com/0xSocialClub"
                 className="text-4xl"
                 target="_blank"
               >
@@ -58,38 +63,83 @@ function HeroHome() {
                   alt="0x Azuki Apes Twitter"
                 />
               </a>
-              {/* <a href="https://opensea.io/collection/0xazukiapes" target="_blank">
-                  <img
-                    className="w-[90px] h-[90px] mt-5 lg:ml-8 ml-[180%] hover:text-yellow-400 cursor-pointer"
-                    src={Opensea}
-                    alt="0x Azuki Apes Opensea"
-                  /> */}
-              {/* </a> */}
+
               <div
                 className="lg:mt-4 lg:pl-[160px]"
                 data-aos="fade-down"
                 data-aos-delay="300"
               >
-                <div className="md:pr-40">
-                  {/* <input
-                    type="number"
-                    min="1"
-                    max="25"
-                    name="amount"
-                    value={amount}
-                    onChange={handleInputChange}
-                    className="w-14 h-14 text-black rounded-md active:border-yellow-500
-                  hover:border-yellow-500 border-2 border-yellow-400 out-of-range:border-red-500 autofill:bg-yellow-200"
-                  /> */}
-                  {/* <div className="text-2xl text-white pl-16">
-                  {amount}
-                  </div> */}
-                </div>
+                {isOgMintActive ? (
+                  <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0">
+                    <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[44px] md:mb-5 ">
+                      MAX 2 Free Mints Per Whitelisted Wallet
+                    </p>
+                    <div className="flex justify-center mt-4 md:pr-[110px]">
+                      <button
+                        onClick={handleFreeDecrementClick}
+                        className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-10 md:text-xs "
+                      >
+                        -
+                      </button>
 
-                <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0">
-        
-                </div>
+                      <button
+                        className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 w-[135px] md:w-[235px] md:mt-0 text-xs md:text-sm"
+                        onClick={freeMintTransaction}
+                      >
+                        {amount} Free 0xRed Mint
+                      </button>
+
+                      <button
+                        onClick={handleFreeIncrementClick}
+                        className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 text-xs 
+                    h-14 w-10"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {isPublicMintActive ? (
+                  <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0 lg:pl-4 ">
+                    <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[84px] md:mb-5">
+                      Mint up to 10 at a time
+                    </p>
+                    <div className="flex justify-center mt-4 md:pr-[110px]">
+                    <button
+                      onClick={handleDecrementClick}
+                      className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-10 md:text-xs "
+                    >
+                      -
+                    </button>
+                    <button
+                      className="btn-sm text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 w-[120px] md:w-[235px] md:mt-0 md:text-sm text-[10px]"
+                      onClick={publicTransaction}
+                    >
+                      Mint {amount} 0xRed @ {amount * 0.02} ETH
+                    </button>
+                    <button
+                      onClick={handleIncrementClick}
+                      className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 text-xs 
+                        h-14 w-10"
+                    >
+                      +
+                    </button>
+                  </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
+              {!isOgMintActive ? (
+                <p className="text-lg uppercase font-bold text-yellow-500 mt-5 lg:pl-[50px]  md:mb-5">
+                  Sorry You Are Not On The 0xRed List. <br />
+                  Please Come Back During Public Mint.{" "}
+                </p>
+              ) : (
+                ""
+              )}
             </div>
 
             {/* Mobile mockup */}

@@ -1,0 +1,24 @@
+{
+  "cSpell.words": [
+    "Decommitment",
+    "ECBS",
+    "ECBSH",
+    "EMBS",
+    "EMBSH",
+    "ICBS",
+    "ICBSH",
+    "IMBS",
+    "IMBSH",
+    "MMRs",
+    "Merkle",
+    "SPDX",
+    "TODOs",
+    "appendable",
+    "camelcase",
+    "decommitments",
+    "keccak",
+    "mixedcase",
+    "mstore",
+    "solhint"
+  ]
+}

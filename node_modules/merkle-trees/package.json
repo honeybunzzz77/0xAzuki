@@ -1,0 +1,49 @@
+{
+  "name": "merkle-trees",
+  "version": "0.2.3",
+  "description": "js and solidity suite for compact multi-proof appendable Merkle trees.",
+  "main": "js/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/circle-free/merkle-trees.git"
+  },
+  "keywords": [
+    "merkle-tree",
+    "merkle-trees",
+    "ethereum",
+    "solidity"
+  ],
+  "scripts": {
+    "test": "mocha 'js/tests' && truffle test",
+    "test-eth": "truffle test",
+    "test-js": "mocha 'js/tests'",
+    "ganache": "ganache-cli",
+    "lint-eth": "solhint 'eth/contracts/**/*.sol'",
+    "prettier": "prettier --write 'eth/contracts/**/*.sol' 'eth/tests/**/*.js' 'js/src/**/*.js' 'js/tests/**/*.js'",
+    "prettier-eth": "prettier --write 'eth/contracts/**/*.sol' 'eth/specific-contracts/**/*.sol' 'eth/other-contracts/**/*.sol' 'eth/tests/**/*.js'",
+    "prettier-js": "prettier --write 'js/src/**/*.js' 'js/tests/**/*.js'",
+    "compile-eth": "yarn truffle compile",
+    "migrate": "truffle migrate --network development"
+  },
+  "author": "Circle-Free",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/circle-free/merkle-trees/issues"
+  },
+  "homepage": "https://github.com/circle-free/merkle-trees#readme",
+  "dependencies": {
+    "sha3": "^2.1.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "ganache-cli": "^6.12.0",
+    "mocha": "^8.2.0",
+    "prettier": "^2.1.2",
+    "prettier-plugin-solidity": "^1.0.0-alpha.59",
+    "solhint": "^3.2.2",
+    "truffle": "^5.1.49"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
