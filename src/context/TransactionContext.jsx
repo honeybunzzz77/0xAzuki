@@ -28,7 +28,7 @@ export default function TransactionProvider({ children }) {
   const [transaction, setTransaction] = useState();
 
   const contractABI = abi;
-  const contractAddress = "0x4c30424BDa07D43a31041573ac7400B40f88deD1";
+  const contractAddress = "0xC1a2f17A31E8Fb8C45aAcc8c62C099339Ab89d0A";
 
   const buildRedList = () => {
     const leaves = redListAddresses.map((address) => keccak256(address));
@@ -96,16 +96,16 @@ export default function TransactionProvider({ children }) {
           namespace: "evm",
           label: "Ethereum Mainnet",
           rpcUrl:
-            "https://mainnet.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+            "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5",
         },
-        {
-          id: "0x4",
-          token: "rETH",
-          namespace: "evm",
-          label: "Ethereum Rinkeby Testnet",
-          rpcUrl:
-            "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
-        },
+        // {
+        //   id: "0x4",
+        //   token: "rETH",
+        //   namespace: "evm",
+        //   label: "Ethereum Rinkeby Testnet",
+        //   rpcUrl:
+        //     "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+        // },
       ],
       appMetadata: {
         name: "Welcome To The 0xSocialClub",
@@ -149,16 +149,16 @@ export default function TransactionProvider({ children }) {
           namespace: "evm",
           label: "Ethereum Mainnet",
           rpcUrl:
-            "https://mainnet.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+            "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5",
         },
-        {
-          id: "0x4",
-          token: "rETH",
-          namespace: "evm",
-          label: "Ethereum Rinkeby Testnet",
-          rpcUrl:
-            "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
-        },
+        // {
+        //   id: "0x4",
+        //   token: "rETH",
+        //   namespace: "evm",
+        //   label: "Ethereum Rinkeby Testnet",
+        //   rpcUrl:
+        //     "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+        // },
       ],
       appMetadata: {
         name: "Welcome To The 0xSocialClub",
@@ -226,7 +226,7 @@ export default function TransactionProvider({ children }) {
   const checkCollectionSizeAndSupply = async () => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9"
+        "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5"
       );
       const transactionContract = new ethers.Contract(
         contractAddress,
@@ -245,7 +245,7 @@ export default function TransactionProvider({ children }) {
   const checkOgMintActive = async () => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9"
+        "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5"
       );
       const transactionContract = new ethers.Contract(
         contractAddress,
@@ -262,7 +262,7 @@ export default function TransactionProvider({ children }) {
   const checkPublicMintActive = async () => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9"
+        "https://mainnet.infura.io/v3/6657bc7a8c3c4902ac11d77dfdcb57c5"
       );
       const transactionContract = new ethers.Contract(
         contractAddress,
