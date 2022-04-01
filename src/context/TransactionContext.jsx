@@ -83,41 +83,41 @@ export default function TransactionProvider({ children }) {
     }
   };
 
-  const connectWallet = useCallback(async () => {
-    const walletConnect = walletConnectModule();
-    const injected = injectedModule();
+  const walletConnect = walletConnectModule();
+  const injected = injectedModule();
 
-    const onboard = Onboard({
-      wallets: [walletConnect, injected], // created in previous step
-      chains: [
-        {
-          id: "0x1", // chain ID must be in hexadecimel
-          token: "ETH",
-          namespace: "evm",
-          label: "Ethereum Mainnet",
-          rpcUrl:
-            "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95",
-        },
-        // {
-        //   id: "0x4",
-        //   token: "rETH",
-        //   namespace: "evm",
-        //   label: "Ethereum Rinkeby Testnet",
-        //   rpcUrl:
-        //     "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
-        // },
-      ],
-      appMetadata: {
-        name: "Welcome To The 0xSocialClub",
-        icon: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-        description: "My app using Onboard",
-        recommendedInjectedWallets: [
-          // { name: "Coinbase", url: "https://wallet.coinbase.com/" },
-          { name: "MetaMask", url: "https://metamask.io" },
-        ],
+  const onboard = Onboard({
+    wallets: [walletConnect, injected], // created in previous step
+    chains: [
+      {
+        id: "0x1", // chain ID must be in hexadecimel
+        token: "ETH",
+        namespace: "evm",
+        label: "Ethereum Mainnet",
+        rpcUrl: "https://mainnet.infura.io/v3/a084af88d6cf493fa727bb8d13271d95",
       },
-    });
+      // {
+      //   id: "0x4",
+      //   token: "rETH",
+      //   namespace: "evm",
+      //   label: "Ethereum Rinkeby Testnet",
+      //   rpcUrl:
+      //     "https://rinkeby.infura.io/v3/a18dd7c3eb2b463ea69bfefdea0247c9",
+      // },
+    ],
+    appMetadata: {
+      name: "Welcome To The 0xSocialClub",
+      icon: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+      description: "My app using Onboard",
+      recommendedInjectedWallets: [
+        // { name: "Coinbase", url: "https://wallet.coinbase.com/" },
+        { name: "MetaMask", url: "https://metamask.io" },
+      ],
+    },
+  });
+
+  const connectWallet = useCallback(async () => {
     try {
       const wallets = await onboard.connectWallet();
       console.log(wallets);
@@ -214,7 +214,6 @@ export default function TransactionProvider({ children }) {
       contractABI,
       signer
     );
-
 
     try {
       await transactionContract.ogMint(amount, redList[address.toUpperCase()]);
