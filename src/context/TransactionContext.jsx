@@ -85,13 +85,13 @@ export default function TransactionProvider({ children }) {
       package: CoinbaseWalletSDK,
       options: {
         appName: "0xRed",
-        infuraId: "a084af88d6cf493fa727bb8d13271d95",
+        infuraId: import.meta.env.VITE_INFURA_ID,
       },
     },
     walletconnect: {
       package: WalletConnect,
       options: {
-        infuraId: "a084af88d6cf493fa727bb8d13271d95",
+        infuraId: import.meta.env.VITE_INFURA_ID,
       },
     },
   };
@@ -105,13 +105,11 @@ export default function TransactionProvider({ children }) {
       const provider = await web3Modal.connect();
       const library = new ethers.providers.Web3Provider(provider);
       const accounts = await library.listAccounts();
-
       buildRedList();
 
       if (accounts) setAddress(accounts[0]);
       setWeb3Provider(library);
       setConnection(true);
-
     } catch (error) {
       console.log(error);
     }
@@ -287,7 +285,7 @@ export default function TransactionProvider({ children }) {
         isPublicMintActive,
         collectionSize,
         totalSupply,
-        redList
+        redList,
       }}
     >
       {children}]{" "}
