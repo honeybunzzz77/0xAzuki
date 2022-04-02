@@ -107,7 +107,7 @@ export default function TransactionProvider({ children }) {
       const library = new ethers.providers.Web3Provider(provider);
       const accounts = await library.listAccounts();
 
-      buildRedList();
+      // buildRedList();
       if (accounts) setAddress(accounts[0]);
       setWeb3Provider(library);
       console.log(web3Provider);
