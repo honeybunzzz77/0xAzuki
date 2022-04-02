@@ -220,17 +220,17 @@ export default function TransactionProvider({ children }) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    checkCollectionSizeAndSupply();
-  }, [checkCollectionSizeAndSupply]);
+  // useEffect(() => {
+  //   checkCollectionSizeAndSupply();
+  // }, [checkCollectionSizeAndSupply]);
 
-  useEffect(() => {
-    checkOgMintActive();
-  }, [checkOgMintActive]);
+  // useEffect(() => {
+  //   checkOgMintActive();
+  // }, [checkOgMintActive]);
 
-  useEffect(() => {
-    checkPublicMintActive();
-  }, [checkPublicMintActive]);
+  // useEffect(() => {
+  //   checkPublicMintActive();
+  // }, [checkPublicMintActive]);
 
   useEffect(() => {
     checkIfWalletIsConnected();
