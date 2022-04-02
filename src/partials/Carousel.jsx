@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
-import CarouselImage01 from '../images/4.jpg';
-import CarouselImage02 from '../images/360.jpg';
-import CarouselImage03 from '../images/red.jpg';
-import CarouselImage04 from '../images/2451.jpg';
-import CarouselImage05 from '../images/890.jpg';
+import CarouselImage01 from '../images/1278.png';
+import CarouselImage02 from '../images/3.png';
+import CarouselImage03 from '../images/77.png';
+import CarouselImage04 from '../images/147.png';
+import CarouselImage05 from '../images/845.png';
 
 // Import Swiper
 import Swiper, { Autoplay, Navigation } from 'swiper';

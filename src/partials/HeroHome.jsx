@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import BlackApe from "../images/1278.jpg";
+import BlackApe from "../images/141.png";
 import { TransactionContext } from "../context/TransactionContext";
 import { SiTwitter } from "react-icons/si";
 import redListAddresses from "../web3utils/whitelist";
