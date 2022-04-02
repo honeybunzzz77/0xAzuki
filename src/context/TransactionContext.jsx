@@ -107,12 +107,12 @@ export default function TransactionProvider({ children }) {
       const accounts = await library.listAccounts();
 
       buildRedList();
+
+      console.log(redList)
       if (accounts) setAddress(accounts[0]);
       setWeb3Provider(library);
       console.log(web3Provider);
       setConnection(true);
-
-      console.log(redListAddresses);
 
     } catch (error) {
       console.log(error);
