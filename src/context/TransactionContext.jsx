@@ -96,7 +96,6 @@ export default function TransactionProvider({ children }) {
     },
   };
 
-
   const web3Modal = new Web3Modal({
     providerOptions, // required
   });
@@ -113,7 +112,7 @@ export default function TransactionProvider({ children }) {
       console.log(web3Provider);
       setConnection(true);
 
-     console.log(typeof redListAddresses[address] == "undefined")
+      console.log(redListAddresses);
 
     } catch (error) {
       console.log(error);
@@ -135,7 +134,6 @@ export default function TransactionProvider({ children }) {
       console.log(error);
     }
   });
-
 
   const publicTransaction = useCallback(async () => {
     const provider = new ethers.providers.Web3Provider(web3Provider);
