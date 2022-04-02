@@ -21,7 +21,7 @@ export default function TransactionProvider({ children }) {
   const [isPublicMintActive, setPublicMintActive] = useState(false);
   const [collectionSize, setCollectionSize] = useState();
   const [totalSupply, setTotalSupply] = useState();
-  const [isOnWhiteList, setIsOnWhiteList] = useState();
+  const [freeAmount, setFreeAmount] = useState();
   const [library, setLibrary] = useState();
 
   const contractABI = abi;
@@ -57,14 +57,14 @@ export default function TransactionProvider({ children }) {
   };
 
   const handleFreeIncrementClick = () => {
-    if (amount >= 0 && amount < 2) {
-      setAmount(amount + 1);
+    if (freeAmount >= 0 && freeAmount < 2) {
+      setFreeAmount(freeAmount + 1);
     }
   };
 
   const handleFreeDecrementClick = () => {
-    if (amount > 0 && amount !== 1) {
-      setAmount(amount - 1);
+    if (freeAmount > 0 && freeAmount !== 1) {
+      setFreeAmount(freeAmount - 1);
     }
   };
 
@@ -162,7 +162,7 @@ export default function TransactionProvider({ children }) {
     );
 
     try {
-      await transactionContract.ogMint(amount, redList[address.toUpperCase()]);
+      await transactionContract.ogMint(freeAmount, redList[address.toUpperCase()]);
     } catch (error) {
       console.log(error);
     }
@@ -288,6 +288,7 @@ export default function TransactionProvider({ children }) {
         collectionSize,
         totalSupply,
         redList,
+        freeAmount
       }}
     >
       {children}]{" "}

@@ -22,6 +22,7 @@ function HeroHome() {
     transaction,
     connected,
     redList,
+    freeAmount,
   } = useContext(TransactionContext);
 
   return (
@@ -88,7 +89,7 @@ function HeroHome() {
                         className="btn text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 w-[135px] md:w-[235px] md:mt-0 text-xs md:text-sm"
                         onClick={freeMintTransaction}
                       >
-                        {amount} Free 0xRed Mint
+                        {freeAmount} Free 0xRed Mint
                       </button>
 
                       <button
