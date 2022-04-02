@@ -106,7 +106,7 @@ function HeroHome() {
                 )}
                 {isPublicMintActive ? (
                   <div className=" max-w-sm mx-auto sm:max-w-md lg:-mx-24 md:mx-0 lg:pl-4 ">
-                    <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[84px] md:mb-5">
+                    {/* <p className="text-xs uppercase font-bold text-yellow-500 mt-5 lg:pl-[84px] md:mb-5">
                       Mint up to 10 at a time
                     </p>
                     <div className="flex justify-center mt-4 md:pr-[110px]">
@@ -115,21 +115,21 @@ function HeroHome() {
                         className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 mr-4 h-14 w-10 md:text-xs "
                       >
                         -
-                      </button>
-                      <button
+                      </button> */}
+                      {/* <button
                         className="btn-sm text-black font-bold bg-yellow-400 hover:bg-yellow-300 shrink-0 uppercase h-14 w-[120px] md:w-[235px] md:mt-0 md:text-sm text-[10px]"
                         onClick={publicTransaction}
                       >
                         Mint {amount} 0xRed @ {amount * 0.02} ETH
-                      </button>
-                      <button
+                      </button> */}
+                      {/* <button
                         onClick={handleIncrementClick}
                         className="btn-sm text-black font-bold uppercase bg-yellow-400 hover:bg-yellow-300 ml-4 text-xs 
                         h-14 w-10"
                       >
                         +
-                      </button>
-                    </div>
+                      </button> */}
+                    {/* </div> */}
                   </div>
                 ) : (
                   ""

@@ -73,11 +73,21 @@ function Stats() {
               data-aos-delay="200"
             >
               <div className="font-red-hat-display text-3xl font-extrabold tracking-tighter mb-1">
-                {totalSupply} / {collectionSize}
+                {/* {totalSupply} / {collectionSize} */} 1800
               </div>
               <div className="text-gray-600 dark:text-gray-400">
-                0xRED COLLECTION
+                0xRED COLLECTION (SOLD OUT)
               </div>
+              <a
+                href="https://opensea.io/collection/0xred"Ï
+                target="_blank"
+              >
+                <img
+                  className="w-[90px] h-[90px] lg:ml-[120px] md:ml-[70px] ml-[38%] mt-5 hover:text-yellow-400 cursor-pointer"
+                  src={Opensea}
+                  alt="0x Red Opensea"
+                />
+              </a>
             </div>
           </div>
         </div>
