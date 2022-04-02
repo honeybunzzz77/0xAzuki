@@ -22,7 +22,7 @@ export default function TransactionProvider({ children }) {
   const [collectionSize, setCollectionSize] = useState();
   const [totalSupply, setTotalSupply] = useState();
   const [isOnWhiteList, setIsOnWhiteList] = useState();
-  const [transaction, setTransaction] = useState();
+  const [library, setLibrary] = useState();
 
   const contractABI = abi;
   const contractAddress = "0xC1a2f17A31E8Fb8C45aAcc8c62C099339Ab89d0A";
@@ -108,7 +108,9 @@ export default function TransactionProvider({ children }) {
       buildRedList();
 
       if (accounts) setAddress(accounts[0]);
-      setWeb3Provider(library);
+      setWeb3Provider(provider);
+      setLibrary(library);
+      console.log(web3Provider);
       setConnection(true);
     } catch (error) {
       console.log(error);
@@ -174,7 +176,7 @@ export default function TransactionProvider({ children }) {
       const transactionContract = new ethers.Contract(
         contractAddress,
         contractABI,
-        web3Provider
+        library
       );
       let collection = await transactionContract.actualCollectionSize();
       setCollectionSize(collection.toString());
@@ -193,7 +195,7 @@ export default function TransactionProvider({ children }) {
       const transactionContract = new ethers.Contract(
         contractAddress,
         contractABI,
-        web3Provider
+        library
       );
       let isActive = await transactionContract.ogMintActive();
       setOgMintActive(isActive);
@@ -210,7 +212,7 @@ export default function TransactionProvider({ children }) {
       const transactionContract = new ethers.Contract(
         contractAddress,
         contractABI,
-        web3Provider
+        library
       );
       let isActive = await transactionContract.publicSaleActive();
       setPublicMintActive(isActive);

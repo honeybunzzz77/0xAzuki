@@ -21,7 +21,7 @@ function HeroHome() {
     address,
     transaction,
     connected,
-    redList
+    redList,
   } = useContext(TransactionContext);
 
   return (
@@ -141,10 +141,12 @@ function HeroHome() {
               ) : (
                 ""
               )}
-              {connected && typeof redList[address.toUpperCase()] == "undefined" && isOgMintActive ? (
+              {connected &&
+              typeof redList[address.toUpperCase()] == "undefined" &&
+              isOgMintActive ? (
                 <p className="text-lg uppercase font-bold text-yellow-500 mt-5 lg:pl-[110px] text-xs md:mb-5">
-                  SORRY YOU ARE NOT ON THE 0XRED LIST. <br/> PLEASE COME BACK DURING
-                  PUBLIC MINT.
+                  SORRY YOU ARE NOT ON THE 0XRED LIST. <br /> PLEASE COME BACK
+                  DURING PUBLIC MINT.
                 </p>
               ) : (
                 ""
