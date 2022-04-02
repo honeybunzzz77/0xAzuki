@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import abi from "../utils/ContractABI.json";
 import redListAddresses from "../web3utils/whitelist";
 import { MerkleTree } from "merkletreejs";
-import keccak256 from "keccak256";
+// import keccak256 from "keccak256";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import WalletConnect from "@walletconnect/web3-provider";
 import Web3Modal from "web3modal";
@@ -107,7 +107,7 @@ export default function TransactionProvider({ children }) {
       const library = new ethers.providers.Web3Provider(provider);
       const accounts = await library.listAccounts();
 
-      // buildRedList();
+      buildRedList();
       if (accounts) setAddress(accounts[0]);
       setWeb3Provider(library);
       console.log(web3Provider);
